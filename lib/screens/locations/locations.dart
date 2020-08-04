@@ -4,18 +4,22 @@ import 'package:flutter_beginner_tutorial/models/location.dart';
 import 'package:flutter_beginner_tutorial/screens/location_detail/location_detail.dart';
 import 'package:flutter_beginner_tutorial/widgets/ImageBanner.dart';
 
+import '../../style.dart';
 import 'TileOverlay.dart';
 
-class Locations extends StatelessWidget {
+class LocationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // you dont want to call API in build method because it can call multiple times
-    // NOTE: we'll be moving this to a scoped_model later
-    final locations = Location.fetchAll();
+    final locations = Location.fetchMockData();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Locations'),
+        title: Text(
+          AppName,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: locations.length,
@@ -30,6 +34,7 @@ class Locations extends StatelessWidget {
   Widget _itemBuilder(BuildContext context, Location location) {
     return GestureDetector(
       onTap: () => _onLocationTapped(context, location.id),
+      key: Key('location_list_item_${location.id}'),
       child: Container(
         height: 245.0,
         child: Stack(
@@ -43,7 +48,12 @@ class Locations extends StatelessWidget {
   }
 
   _onLocationTapped(BuildContext context, int id) {
+//    Location.fetchDataFromAPI();
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LocationDetail(id)));
+      context,
+      MaterialPageRoute(
+        builder: (context) => LocationDetail(id),
+      ),
+    );
   }
 }

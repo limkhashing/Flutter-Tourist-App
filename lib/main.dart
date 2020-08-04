@@ -14,7 +14,7 @@ class App extends StatelessWidget {
     return MaterialApp(
 //      onGenerateRoute: _routes(), // Also works to tell what dynamic route available
       theme: _theme(),
-      home: Locations(),
+      home: LocationsScreen(),
     );
   }
 
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
       Widget screen;
       switch (settings.name) {
         case LocationsRoute:
-          screen = Locations();
+          screen = LocationsScreen();
           break;
         case LocationDetailRoute:
           screen = LocationDetail(arguments['id']);
@@ -41,6 +41,7 @@ class App extends StatelessWidget {
       appBarTheme: AppBarTheme(
         textTheme: TextTheme(subtitle1: AppBarTextStyle),
       ),
+      primaryColor: Colors.white,
       textTheme: TextTheme(
         subtitle1: TitleTextStyle,
         subtitle2: SubTitleTextStyle,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const String FontNameDefault = 'Montserrat';
+const String AppName = 'Tourism & CO.';
 
 const LargeTextSize = 22.0;
 const MediumTextSize = 16.0;

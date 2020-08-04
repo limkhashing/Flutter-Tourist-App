@@ -1,3 +1,6 @@
+import 'package:http/http.dart' as http;
+import 'package:flutter_beginner_tutorial/endpoint/Endpoint.dart';
+
 import 'location_fact.dart';
 
 /// Represents a tourism location a user can visit.
@@ -18,7 +21,15 @@ class Location {
     this.facts,
   });
 
-  static List<Location> fetchAll() {
+  static Future<List<Location>> fetchDataFromAPI() async {
+    final uri = Endpoint.uri('/locations', queryParameters: {"Accept": "application/json"});
+    final response = await http.get(
+      uri.toString(),
+    );
+    print(response.body);
+  }
+
+  static List<Location> fetchMockData() {
     return [
       Location(
           id: 1,
@@ -61,7 +72,13 @@ class Location {
 
   static Location fetchByID(int locationID) {
     // NOTE: this will replaced by a proper API call
-    List<Location> locations = Location.fetchAll();
-    return locations.firstWhere((location) => location.id == locationID, orElse: null);
+    List<Location> locations = Location.fetchMockData();
+    return locations.firstWhere((location) => location.id == locationID,
+        orElse: null);
   }
+
+//  static Future<Location> fetchByID(int locationID) async {
+//    List<Location> locations = await Location.fetchDataFromAPI();
+//    return locations.firstWhere((location) => location.id == locationID, orElse: null);
+//  }
 }
